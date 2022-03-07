@@ -8,8 +8,10 @@ secrets = {
     #'password' : 'FWNHE44J4724CY',         # Keep the two '' quotes around password
     'ssid' : 'D410',
     'password' : 'Axel2018',
-    'timezone' : "CEST",  # http://worldtimeapi.org/timezones
-    'openweather_token' : '90c1e08a843f10dfeb250d3f15127e2e',
-    'aio_username' : 'Jojo33',
-    'aio_key' : 'aio_BBGc00A51XlW2KT91NglOnFQA83l',
+    'timezone' : "Europe/Stockholm",  # http://worldtimeapi.org/timezones
+    'openweather_token' : 'b54fc82e7733fdb5481554cc5384afcf',
+    'aio_username' : 'wuleo',
+    'aio_key' : 'aio_wbAe62y6tNmDRcy2eEJlvaer90oz',
+    'github_token' : 'fawfj23rakjnfawiefa',
+    'hackaday_token' : 'h4xx0rs3kret',
     }
