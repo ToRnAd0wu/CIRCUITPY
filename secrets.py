@@ -1,17 +1,18 @@
-# This file is where you keep secret settings, passwords, and tokens!
-# If you put them in the code you risk committing that info or sharing it
-# which would be not great. So, instead, keep it all in this one file and
-# keep it a secret.
+# SPDX-FileCopyrightText: 2020 Anne Barela for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
 
 secrets = {
-    #'ssid' : 'OWNIT-DD88',             # Keep the two '' quotes around the name
-    #'password' : 'FWNHE44J4724CY',         # Keep the two '' quotes around password
     'ssid' : 'D410',
     'password' : 'Axel2018',
-    'timezone' : "Europe/Stockholm",  # http://worldtimeapi.org/timezones
+    'timezone' : "Europe/Stockholm",
     'openweather_token' : 'b54fc82e7733fdb5481554cc5384afcf',
     'aio_username' : 'wuleo',
-    'aio_key' : 'aio_wbAe62y6tNmDRcy2eEJlvaer90oz',
-    'github_token' : 'fawfj23rakjnfawiefa',
-    'hackaday_token' : 'h4xx0rs3kret',
+    'aio_key' : 'aio_TcJc77wWchiEPnkimytAR6raMv0I',
+    'temp_key' : 'project-1.batttemp',
+    'percent_key' : 'project-1.battpercent',
+    'fails_key' : 'project-1.number-of-fail',
+    'current_key' : 'project-1.leocurrent-ma', 
+    'voltage_key' : 'project-1.leobattvol',
     }
+    

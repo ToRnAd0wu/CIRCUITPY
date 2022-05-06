@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2019 Limor Fried for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
+
 import time
 import json
 import displayio
@@ -6,12 +10,12 @@ from adafruit_bitmap_font import bitmap_font
 
 cwd = ("/"+__file__).rsplit('/', 1)[0] # the current working directory (where this file is)
 
-small_font = cwd+"/fonts/Arial-12.bdf"
-medium_font = cwd+"/fonts/Arial-16.bdf"
-large_font = cwd+"/fonts/Arial-Bold-24.bdf"
+small_font = cwd+"/fonts/Helvetica-Bold-16.bdf"
+medium_font = cwd+"/fonts/Helvetica-Bold-16.bdf"
+large_font = cwd+"/fonts/Helvetica-Bold-16.bdf"
 
 class OpenWeather_Graphics(displayio.Group):
-    def __init__(self, root_group, *, am_pm=True, celsius=True):
+    def __init__(self, root_group, *, am_pm=False, celsius=True):
         super().__init__()
         self.am_pm = am_pm
         self.celsius = celsius
@@ -24,7 +28,7 @@ class OpenWeather_Graphics(displayio.Group):
 
         self._icon_sprite = None
         self._icon_file = None
-        self.set_icon(cwd+"/weather_background.bmp")
+        #self.set_icon(cwd+"/weather_background.bmp")
 
         self.small_font = bitmap_font.load_font(small_font)
         self.medium_font = bitmap_font.load_font(medium_font)
@@ -60,19 +64,20 @@ class OpenWeather_Graphics(displayio.Group):
         self.description_text.color = 0xFFFFFF
         self._text_group.append(self.description_text)
 
-    def display_weather(self, weather):
-        weather = json.loads(weather)
+    def display_weather(self, weather, bg):
+        weather = weather.json()
+        print(self)
 
         # set the icon/background
         weather_icon = weather['weather'][0]['icon']
-        self.set_icon(cwd+"/icons/"+weather_icon+".bmp")
+        self.set_icon(cwd+"/images/"+weather_icon+".bmp", bg)
 
         city_name =  weather['name'] + ", " + weather['sys']['country']
         print(city_name)
         if not self.city_text:
             self.city_text = Label(self.medium_font, text=city_name)
             self.city_text.x = 10
-            self.city_text.y = 12
+            self.city_text.y = 62
             self.city_text.color = 0xFFFFFF
             self._text_group.append(self.city_text)
 
@@ -88,6 +93,7 @@ class OpenWeather_Graphics(displayio.Group):
             self.temp_text.text = "%d °C" % temperature
         else:
             self.temp_text.text = "%d °F" % ((temperature * 9 / 5) + 32)
+        self.temp_text.x=270
 
         description = weather['weather'][0]['description']
         description = description[0].upper() + description[1:]
@@ -111,13 +117,13 @@ class OpenWeather_Graphics(displayio.Group):
                 hour = 12
         time_str = format_str % (hour, minute)
         print(time_str)
-        self.time_text.text = time_str
+        #self.time_text.y=62
+        #self.time_text.x=270
+        #self.time_text.text = time_str
 
-    def set_icon(self, filename):
+    def set_icon(self, filename, bg):
         """The background image to a bitmap file.
-
         :param filename: The filename of the chosen icon
-
         """
         print("Set icon to ", filename)
         if self._icon_group:
@@ -133,9 +139,9 @@ class OpenWeather_Graphics(displayio.Group):
         icon = displayio.OnDiskBitmap(self._icon_file)
         self._icon_sprite = displayio.TileGrid(
             icon, pixel_shader=getattr(icon, 'pixel_shader', displayio.ColorConverter()))
-
         # # CircuitPython 7+ compatible
         # icon = displayio.OnDiskBitmap(filename)
         # self._icon_sprite = displayio.TileGrid(icon, pixel_shader=background.pixel_shader)
-
-        self._icon_group.append(self._icon_sprite)
+        #self._icon_group.y=50
+        #self._icon_group.append(self._icon_sprite)
+        bg.append(self._icon_sprite)
